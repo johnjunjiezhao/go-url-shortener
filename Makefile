@@ -1,4 +1,4 @@
-.PHONY: run build test cover fmt vet redis clean
+.PHONY: run build test cover fmt vet tidy redis clean
 
 run:
 	go run main.go
@@ -17,6 +17,9 @@ fmt:
 
 vet:
 	go vet ./...
+
+tidy:
+	go mod tidy
 
 redis:
 	docker run --rm -p 6379:6379 --name urlshort-redis redis:7
