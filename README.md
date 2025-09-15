@@ -87,7 +87,7 @@ curl -i http://localhost:9808/XXXXXXXX
 - `POST /short-urls`
   - Body: `{ "long_url": string, "user_id": string }` (both required)
   - Response: `{ "message": string, "short_url": string }`
-- `GET /:short_url`
+- `GET /:short-url`
   - Redirects with HTTP 302 to the original URL
 
 ## Configuration
