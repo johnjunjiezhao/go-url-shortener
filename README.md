@@ -90,6 +90,11 @@ curl -i http://localhost:9808/XXXXXXXX
 - `GET /:short-url`
   - Redirects with HTTP 302 to the original URL
 
+### Naming Conventions
+- Path segments use hyphenated kebab-case (e.g., `/short-urls`).
+- JSON fields use snake_case (e.g., `long_url`, `user_id`, `short_url`).
+- Go identifiers use CamelCase with initialisms preserved (e.g., `CreateShortURL`, `URLCreationRequest`).
+
 ## Configuration
 The app reads environment variables from the process (no dotenv loader):
 - `REDIS_ADDR` — default `localhost:6379`
