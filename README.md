@@ -69,7 +69,7 @@ go run main.go
 3) Create a short URL
 
 ```bash
-curl -sS -X POST http://localhost:9808/create-short-url \
+curl -sS -X POST http://localhost:9808/short-urls \
   -H 'Content-Type: application/json' \
   -d '{"long_url":"https://example.com","user_id":"user123"}'
 # {"message":"short url created successfully","short_url":"http://localhost:9808/XXXXXXXX"}
@@ -84,10 +84,10 @@ curl -i http://localhost:9808/XXXXXXXX
 ```
 
 ## API
-- `POST /create-short-url`
+- `POST /short-urls`
   - Body: `{ "long_url": string, "user_id": string }` (both required)
   - Response: `{ "message": string, "short_url": string }`
-- `GET /:shortUrl`
+- `GET /:shortURL`
   - Redirects with HTTP 302 to the original URL
 
 ## Configuration
