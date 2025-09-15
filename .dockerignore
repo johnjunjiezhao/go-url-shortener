@@ -1,0 +1,23 @@
+# Go build cache
+**/.cache
+
+# VCS
+.git
+.gitignore
+
+# IDE/Editor
+.vscode
+.idea
+
+# Binaries and build outputs
+server
+*.out
+
+# Modules (let Docker layer caching handle go mod)
+vendor
+
+# Misc
+*.log
+*.env
+.env.*
+

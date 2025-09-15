@@ -20,6 +20,35 @@ A minimal URL shortener written in Go with a Redis-backed store and a tiny Gin H
 - Redis 7+ (local Docker is fine)
 - Optional: Docker to run Redis locally
 
+## Docker
+- Build and run app + Redis with Docker Compose:
+
+```bash
+make compose-up
+# or
+docker compose up --build -d
+```
+
+- Follow logs:
+
+```bash
+make compose-logs
+# or
+docker compose logs -f app
+```
+
+- Stop and remove containers:
+
+```bash
+make compose-down
+# or
+docker compose down
+```
+
+Notes:
+- The app listens on `localhost:9808` and Redis on `localhost:6379` via published ports.
+- The application reads `REDIS_ADDR` from the environment; in Compose it is set to `redis:6379`.
+
 ## Quickstart
 1) Start Redis locally
 
@@ -87,6 +116,9 @@ Common tasks via `make`:
 - `make vet` — static analysis
 - `make tidy` — tidy modules (`go mod tidy`)
 - `make redis` — run Redis locally via Docker
+- `make compose-up` — start app and Redis via Docker Compose
+- `make compose-logs` — tail app logs
+- `make compose-down` — stop Compose stack
 - `make clean` — remove built artifacts
 
 Notes:
@@ -100,4 +132,3 @@ Notes:
 
 ## Security
 - Default Redis has no auth and is intended only for local dev. For deployments, set `REDIS_ADDR`, `REDIS_PASSWORD`, and `REDIS_DB` appropriately and secure the instance.
-
