@@ -1,12 +1,12 @@
 package store
 
 import (
-    "context"
-    "os"
-    "strconv"
-    "time"
+	"context"
+	"os"
+	"strconv"
+	"time"
 
-    "github.com/go-redis/redis/v8"
+	"github.com/go-redis/redis/v8"
 )
 
 // Define a struct to hold the Redis client
@@ -24,23 +24,23 @@ const CacheDuration = time.Hour * 6 // Cache duration for the shortened URLs
 
 // Initialize the Redis client
 func InitializeStore() *StoreService {
-    addr := os.Getenv("REDIS_ADDR")
-    if addr == "" {
-        addr = "localhost:6379"
-    }
-    password := os.Getenv("REDIS_PASSWORD")
-    db := 0
-    if v := os.Getenv("REDIS_DB"); v != "" {
-        if parsed, err := strconv.Atoi(v); err == nil {
-            db = parsed
-        }
-    }
+	addr := os.Getenv("REDIS_ADDR")
+	if addr == "" {
+		addr = "localhost:6379"
+	}
+	password := os.Getenv("REDIS_PASSWORD")
+	db := 0
+	if v := os.Getenv("REDIS_DB"); v != "" {
+		if parsed, err := strconv.Atoi(v); err == nil {
+			db = parsed
+		}
+	}
 
-    redisClient := redis.NewClient(&redis.Options{
-        Addr:     addr,
-        Password: password,
-        DB:       db,
-    })
+	redisClient := redis.NewClient(&redis.Options{
+		Addr:     addr,
+		Password: password,
+		DB:       db,
+	})
 
 	pong, err := redisClient.Ping(ctx).Result()
 	if err != nil {

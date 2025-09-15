@@ -14,7 +14,7 @@ func sha256Of(input string) []byte {
 	return algorithm.Sum(nil)
 }
 
-func base58Encoded(input []byte) (string) {
+func base58Encoded(input []byte) string {
 	encoding := base58.BitcoinEncoding
 	encoded, err := encoding.Encode(input)
 	if err != nil {

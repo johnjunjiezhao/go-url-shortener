@@ -1,19 +1,18 @@
 package handler
 
 import (
-    "net/http"
+	"net/http"
 
-    "github.com/gin-gonic/gin"
-    "github.com/johnjunjiezhao/go-url-shortener/shortener"
-    "github.com/johnjunjiezhao/go-url-shortener/store"
+	"github.com/gin-gonic/gin"
+	"github.com/johnjunjiezhao/go-url-shortener/shortener"
+	"github.com/johnjunjiezhao/go-url-shortener/store"
 )
 
 // Request model definition
 type UrlCreationRequest struct {
 	LongUrl string `json:"long_url" binding:"required"`
-	UserId string `json:"user_id" binding:"required"`
+	UserId  string `json:"user_id" binding:"required"`
 }
-
 
 func CreateShortUrl(c *gin.Context) {
 	var creationRequest UrlCreationRequest
@@ -22,19 +21,19 @@ func CreateShortUrl(c *gin.Context) {
 		return
 	}
 
-    shortUrl := shortener.GenerateShortLink(creationRequest.LongUrl, creationRequest.UserId)
-    store.SaveURLMapping(shortUrl, creationRequest.LongUrl, creationRequest.UserId)
+	shortUrl := shortener.GenerateShortLink(creationRequest.LongUrl, creationRequest.UserId)
+	store.SaveURLMapping(shortUrl, creationRequest.LongUrl, creationRequest.UserId)
 
 	host := "http://localhost:9808/"
 	c.JSON(200, gin.H{
 		"message":   "short url created successfully",
-		"short_url": host +shortUrl,
+		"short_url": host + shortUrl,
 	})
 
 }
 
 func HandleShortUrlRedirect(c *gin.Context) {
-    shortUrl := c.Param("shortUrl")
-    initialUrl := store.RetrieveOriginalURL(shortUrl)
-    c.Redirect(http.StatusFound, initialUrl)
+	shortUrl := c.Param("shortUrl")
+	initialUrl := store.RetrieveOriginalURL(shortUrl)
+	c.Redirect(http.StatusFound, initialUrl)
 }
