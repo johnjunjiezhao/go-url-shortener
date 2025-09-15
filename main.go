@@ -16,11 +16,11 @@ func main() {
 	})
 
 	r.POST("/create-short-url", func(c *gin.Context) {
-		handler.CreateShortUrl(c)
+		handler.CreateShortURL(c)
 	})
 
-	r.GET("/:shortUrl", func(c *gin.Context) {
-		handler.HandleShortUrlRedirect(c)
+	r.GET("/:shortURL", func(c *gin.Context) {
+		handler.HandleShortURLRedirect(c)
 	})
 
 	store.InitializeStore()

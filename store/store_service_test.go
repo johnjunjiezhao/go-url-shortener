@@ -19,9 +19,9 @@ func TestStoreInit(t *testing.T) {
 func TestInsertionAndRetrieval(t *testing.T) {
 	initialLink := "https://example.com"
 	shortCode := "exmpl"
-	userId := "user123"
+	userID := "user123"
 
-	SaveURLMapping(shortCode, initialLink, userId)
+	SaveURLMapping(shortCode, initialLink, userID)
 	retrievedLink := RetrieveOriginalURL(shortCode)
 
 	assert.Equal(t, initialLink, retrievedLink)
