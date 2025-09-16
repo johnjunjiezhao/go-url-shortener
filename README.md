@@ -16,9 +16,16 @@ A minimal URL shortener written in Go with a Redis-backed store and a tiny Gin H
 - `Makefile` — common dev tasks.
 
 ## Requirements
-- Go installed
+- Go 1.25.1 (project is pinned via `.tool-versions` for [asdf](https://asdf-vm.com/))
 - Redis 7+ (local Docker is fine)
 - Optional: Docker to run Redis locally
+
+### Using asdf
+```bash
+asdf plugin add golang || true
+asdf install
+```
+`asdf install` reads `.tool-versions` and installs Go `1.25.1` for this project.
 
 ## Docker
 - Build and run app + Redis with Docker Compose:
@@ -100,6 +107,7 @@ The app reads environment variables from the process (no dotenv loader):
 - `REDIS_ADDR` — default `localhost:6379`
 - `REDIS_PASSWORD` — default empty
 - `REDIS_DB` — default `0`
+- `BASE_URL` — optional override for the public host (e.g., Railway deployment URL)
 
 Example (bash):
 
