@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
@@ -84,10 +86,24 @@ func CreateShortURL(c *gin.Context) {
 		return
 	}
 
-	host := "http://localhost:9808/"
+	baseURL := os.Getenv("BASE_URL")
+	if baseURL == "" {
+		scheme := c.GetHeader("X-Forwarded-Proto")
+		if scheme == "" {
+			if c.Request.TLS != nil {
+				scheme = "https"
+			} else {
+				scheme = "http"
+			}
+		}
+		baseURL = fmt.Sprintf("%s://%s/", scheme, c.Request.Host)
+	} else if !strings.HasSuffix(baseURL, "/") {
+		baseURL += "/"
+	}
+
 	c.JSON(200, gin.H{
 		"message":   "short url created successfully",
-		"short_url": host + shortURL,
+		"short_url": baseURL + shortURL,
 	})
 
 }
